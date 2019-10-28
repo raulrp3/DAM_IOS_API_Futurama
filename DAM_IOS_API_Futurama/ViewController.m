@@ -18,20 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSURLSession *session = [NSURLSession sharedSession];
-    
-    NSURL *url = [NSURL URLWithString:@"https://futuramaapi.herokuapp.com/api/quotes"];
-    
-    NSURLSessionDataTask *task = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        characters = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.collectionView reloadData];
-        });
-    }];
-    
-    [task resume];
+    count += 20;
+    [self getCharacters];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -82,5 +70,28 @@
     });
 }
 
+- (void) getCharacters{
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://futuramaapi.herokuapp.com/api/quotes/%i", count]];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        characters = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionView reloadData];
+        });
+    }];
+    
+    [task resume];
+}
 
+
+- (IBAction)reloadCharacters:(id)sender {
+    
+    count += 20;
+    [self getCharacters];
+}
 @end

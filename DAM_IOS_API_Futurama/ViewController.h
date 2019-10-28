@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 
 NSArray *characters;
+int count;
 
 @interface ViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UICollectionView *mCollectionView;
+- (IBAction)reloadCharacters:(id)sender;
 
 @end
 

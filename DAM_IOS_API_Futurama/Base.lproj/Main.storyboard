@@ -70,7 +70,13 @@
                             <outlet property="delegate" destination="8Jh-mu-L3o" id="n4G-wi-OmS"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="API Futurama" id="5hI-cv-XN1"/>
+                    <navigationItem key="navigationItem" title="API Futurama" id="5hI-cv-XN1">
+                        <barButtonItem key="rightBarButtonItem" image="arrow.clockwise" catalog="system" id="dv9-hn-jyN">
+                            <connections>
+                                <action selector="reloadCharacters:" destination="8Jh-mu-L3o" id="TtH-Nc-sQf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mCollectionView" destination="ucj-bG-sg5" id="Lu5-pY-Nk6"/>
                     </connections>
@@ -80,4 +86,7 @@
             <point key="canvasLocation" x="405.79710144927537" y="215.625"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="arrow.clockwise" catalog="system" width="56" height="64"/>
+    </resources>
 </document>
