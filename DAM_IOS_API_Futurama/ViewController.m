@@ -69,6 +69,17 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     NSString *quote = [characters[indexPath.row] valueForKey:@"quote"];
+    NSString *name = [characters[indexPath.row] valueForKey:@"character"];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        UIAlertController *alertControler = [UIAlertController alertControllerWithTitle:name message:quote preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"ACEPTAR" style:UIAlertActionStyleDefault handler:nil];
+        
+        [alertControler addAction:ok];
+        [self presentViewController:alertControler animated:YES completion:nil];
+    });
 }
 
 
