@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-NSArray *characters;
-int count;
+NSMutableArray *characters;
+NSNumber *numberCharacters;
 
 @interface ViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource>
 

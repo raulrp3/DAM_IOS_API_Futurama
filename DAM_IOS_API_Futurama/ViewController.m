@@ -18,7 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    count += 20;
+    characters = [[NSMutableArray alloc] init];
+    numberCharacters = @20;
+    
     [self getCharacters];
 }
 
@@ -74,11 +76,15 @@
     
     NSURLSession *session = [NSURLSession sharedSession];
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://futuramaapi.herokuapp.com/api/quotes/%i", count]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://futuramaapi.herokuapp.com/api/quotes/%@", numberCharacters]];
     
     NSURLSessionDataTask *task = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
-        characters = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        NSArray *newCharacters = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        
+        for (NSDictionary *value in newCharacters){
+            [characters addObject:value];
+        }
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.collectionView reloadData];
@@ -90,8 +96,6 @@
 
 
 - (IBAction)reloadCharacters:(id)sender {
-    
-    count += 20;
     [self getCharacters];
 }
 @end
