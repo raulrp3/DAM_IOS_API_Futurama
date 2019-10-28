@@ -17,7 +17,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    NSURL *url = [NSURL URLWithString:@"https://futuramaapi.herokuapp.com/api/quotes"];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        characters = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionView reloadData];
+        });
+    }];
+    
+    [task resume];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -25,7 +39,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 4;
+    return characters.count;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
@@ -41,10 +55,20 @@
     
     Cell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     
-    [cell.mName setText:@"Nombre"];
-    cell.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:1];
+    NSString *name = [characters[indexPath.row] valueForKey:@"character"];
+    NSString *urlImage = [characters[indexPath.row] valueForKey:@"image"];
+    NSURL *url = [NSURL URLWithString:urlImage];
+    NSData *dataImage = [[NSData alloc] initWithContentsOfURL:url];
+    
+    [cell.mName setText:name];
+    [cell.mImage setImage:[UIImage imageWithData:dataImage]];
     
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSString *quote = [characters[indexPath.row] valueForKey:@"quote"];
 }
 
 

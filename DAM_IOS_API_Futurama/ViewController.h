@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NSArray *characters;
+
 @interface ViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UICollectionView *mCollectionView;
