@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-NSMutableArray *characters;
-NSNumber *numberCharacters;
-
-@interface ViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource>{
+    
+    NSMutableArray *characters;
+    NSNumber *numberCharacters;
+}
 
 @property (strong, nonatomic) IBOutlet UICollectionView *mCollectionView;
 - (IBAction)reloadCharacters:(id)sender;
